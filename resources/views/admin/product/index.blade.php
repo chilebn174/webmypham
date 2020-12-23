@@ -3,7 +3,10 @@
 @section('title')
     <title>Admin | Products</title>
 @endsection
-
+@section('js')
+    <script src="{{asset('vendor/sweetAlert2/sweetalert2@10.js')}}"></script>
+    <script src="{{asset('admins/product/list.js')}}"></script>
+@endsection
 
 @section('content')
 
@@ -30,29 +33,32 @@
                             </thead>
                             <tbody>
 
-{{--                            @foreach($categories as $category)--}}
+                            @foreach($products as $productItem)
 
                                 <tr>
-                                    <th scope="row"></th>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <th scope="row">{{$productItem->id}}</th>
+                                    <td>{{$productItem->name}}</td>
+                                    <td>{{ number_format($productItem->price)}}</td>
                                     <td>
-                                        <a href=""
+                                        <img class="image" src="{{ url($productItem->feature_image)}}" alt=""/></td>
+                                    <td>{{optional($productItem->category) ->name}}</td>
+                                    <td>{{ optional($productItem->brand)->ten}}</td>
+                                    <td>
+                                        <a href="{{route('products.edit',['id'=>$productItem->id])}}"
                                            class="btn btn-default">Edit</a>
                                         <a href=""
-                                           class="btn btn-danger">Delete</a>
+                                           data-url="{{ route('products.delete', ['id' => $productItem->id]) }}"
+                                           class="btn btn-danger action_delete">Delete</a>
 
                                     </td>
                                 </tr>
-{{--                            @endforeach--}}
+                            @endforeach
 
                             </tbody>
                         </table>
                     </div>
                     <div class="col-md-12">
+                        {{$products->links()}}
                     </div>
 
                 </div>

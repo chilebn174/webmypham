@@ -36,7 +36,6 @@
                                            class="btn btn-default">Edit</a>
                                         <a href="{{ route('categories.delete', ['id' => $category->id]) }}"
                                            class="btn btn-danger">Delete</a>
-
                                     </td>
                                 </tr>
                             @endforeach

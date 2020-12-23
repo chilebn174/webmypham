@@ -3,7 +3,10 @@
 @section('title')
     <title>Admin | Brands</title>
 @endsection
-
+@section('js')
+    <script src="{{asset('vendor/sweetAlert2/sweetalert2@10.js')}}"></script>
+    <script src="{{asset('admins/product/list.js')}}"></script>
+@endsection
 
 @section('content')
 
@@ -26,17 +29,18 @@
                             </tr>
                             </thead>
                             <tbody>
-
                             @foreach($brands as $brand)
                                 <tr>
                                     <th scope="row">{{$brand->id}}</th>
-                                    <td>{{$brand->name}}</td>
-                                    <td>{{$brand->image}}</td>
+                                    <td>{{$brand->ten}}</td>
                                     <td>
-                                        <a href=""
+                                        <img src="{{ url($brand->image )    }}" alt=""/></td>
+                                    <td>
+                                        <a href="{{route('brands.edit',['id'=>$brand->id])}}"
                                            class="btn btn-default">Edit</a>
                                         <a href=""
-                                           class="btn btn-danger">Delete</a>
+                                           data-url="{{route('brands.delete',['id'=>$brand->id])}}"
+                                           class="btn btn-danger action_delete">Delete</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -44,7 +48,7 @@
                         </table>
                     </div>
                     <div class="col-md-12">
-                        {{$brands->link()}}
+                        {{$brands->links()}}
                     </div>
 
                 </div>
