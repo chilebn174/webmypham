@@ -3,85 +3,39 @@
 <section>
     <div class="container">
         <div class="row">
-            <div class="col-sm-3">
-                <div class="left-sidebar">
-                    <h2>Category</h2>
-                    <div class="panel-group category-products" id="accordian">
-                        <!--category-productsr-->
-                        @foreach($categories as $key=>$category)
-
-                            @if($category->parent_id==0)
-                        <div class="panel panel-default">
-                            <div class="panel-heading dropdown">
-                                <h4 class="panel-title">
-                                    <a  data-parent="#accordian" href="#sportswear">
-                                        <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                        {{$category->name}}
-                                    </a>
-                                </h4>
-                            </div>
-
-
-                            <div id="sportswear" class="panel-collapse ">
-                                <div class="panel-body">
-                                    <ul>
-                                        @foreach($categories as $cate)
-                                        @if($cate->parent_id==$category->id)<li><a href="">{{$cate->name}} </a></li>@endif
-                                        @endforeach
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                            @endif
-                        @endforeach
-                    </div>
-                    <!--/category-products-->
-
-                    <div class="brands_products">
-                        <!--brands_products-->
-                        <h2>Brands</h2>
-                        <div class="brands-name">
-                            <ul class="nav nav-pills nav-stacked">
-                                @foreach($brands as $brand)
-                                <li><a href=""> <span class="pull-right">
-                                            3</span>{{$brand->ten}}</a></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
-                    <!--/brands_products-->
-
-                    <div class="price-range">
-                        <!--price-range-->
-                        <h2>Price Range</h2>
-                        <div class="well">
-                            <input type="text" class="span2" value="" data-slider-min="0" data-slider-max="600" data-slider-step="5" data-slider-value="[250,450]" id="sl2"><br />
-                            <b>$ 0</b> <b class="pull-right">$ 600</b>
-                        </div>
-                    </div>
-                    <!--/price-range-->
-
-                    <!--/shipping-->
-
-                </div>
-            </div>
-
-            <div class="col-sm-9 padding-right">
+            <div class="col-sm-12 padding-right">
                 <div class="product-details">
                     <!--product-details-->
                     <div class="col-sm-5">
                         <div class="view-product">
-                            <img src="{{url($product->feature_image)}}" style="height: 310px;" />
+                            <img src="{{url($produc->feature_image)}}" alt="" />
                         </div>
-
                         <div id="similar-product" class="carousel slide" data-ride="carousel">
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                    <a href=""><img src="" alt=""></a>
+                                    <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
+                                    <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+                                </div>
+                                <div class="item">
+                                    <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
+                                    <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
+                                    <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+                                </div>
+                                <div class="item">
+                                    <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
+                                    <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
+                                    <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
+                                </div>
+
+                            </div>
+
                             <!-- Controls -->
                             <a class="left item-control" href="#similar-product" data-slide="prev">
                                 <i class="fa fa-angle-left"></i>
                             </a>
-                            @foreach($product->productImage as $image)
-                            <img src="{{url($image->image)}}" style="height: 100px;" />@endforeach
-
                             <a class="right item-control" href="#similar-product" data-slide="next">
                                 <i class="fa fa-angle-right"></i>
                             </a>
@@ -90,72 +44,62 @@
                     </div>
                     <div class="col-sm-7">
                         <div class="product-information">
-                            <h2>{{$product->name}}</h2>
-                            <p>Web ID: 1089772</p>
+                            <h2 style="margin-left:-10px;">{{$produc->name}}</h2>
+                            <p>@for($i=1; $i<=5; $i++) <i class="fa fa-star-o"></i>@endfor</p>
                             <span>
-                                <span>{{number_format($product->price)}} VNĐ</span>
-                                <label>Số lượng:</label>
-                                <input type="number" value="1" />
-                                <button type="button" class="btn btn-fefault cart">
-                                    <i class="fa fa-shopping-cart"></i>
-                                    Add to cart
-                                </button>
+                                <p style="color: #f76e90; font-size:25px;">
+                                    {{@number_format($produc->price,0)}} VNĐ</p><br>
+                                <label>Số lượng: <input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="1"></label>
                             </span>
-                            <p><b>Danh mục:</b> {{$cateSelect->name}}</p>
-                            <p><b>Thương hiệu:</b> <a >{{$brandSelect->ten}}</a></p>
-                            <p><b>Tags:</b>@foreach($product->tags as $tags)
-                                    <a class="btn btn-link" >
-                                    {{$tags->name}}</a>
-                                @endforeach</p>
+                            <br>
+                            <p><b>Thương hiệu:</b> E-SHOPPER</p><br>
+                            <p><b>Tình trạng: </b>Còn hàng</p>
+                            <div class="contxt">
+                                <ul>
+                                    <li>
+                                        <a href="cart" style="margin-top: 50px; margin-left: -40px; margin-right:10px;" class="btn"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
+                                        <a href="checkout" style="margin-top: 50px;" class="btn">Mua ngay</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--/product-information-->
                         </div>
-                        <!--/product-information-->
-                    </div>
-                </div>
-                <!--/product-details-->
 
-                <div class="category-tab shop-details-tab" style="margin-top: 30px;">
-                    <!--category-tab-->
-                    <div class="col-sm-12">
-                        <ul class="nav nav-tabs">
-                            <li><a href="#details" data-toggle="tab">Chi tiết</a></li>
-                            <li><a href="#companyprofile" data-toggle="tab">Thương hiệu</a></li>
-                            <li><a href="#tag" data-toggle="tab">Tag</a></li>
-                        </ul>
                     </div>
-                    <div class="tab-content">
-                        <div class="tab-pane fade" id="details">
-                            <div class="col-sm-12">
-                                <div class="product-image-wrapper">
-                                    {!! $product->content !!}
+                    <!--/product-details-->
+
+                    <div class="category-tab shop-details-tab">
+                        <!--category-tab-->
+                        <div class="col-sm-12">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a href="#" data-toggle="tab">Chi tiết</a></li>
+                                <li><a href="#reviews" data-toggle="tab">Đánh giá (5)</a></li>
+                            </ul>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane fade active in" id="reviews">
+                                <div class="col-sm-12">
+                                    <p style="font-family: 'Roboto', sans-serif; margin-top:30px;">{!!$produc->content!!}</p>
+                                    <p><b>Viết đánh giá</b></p>
+        
+                                    <form action="#" method="POST">
+                                        <span>
+                                            <input type="text" placeholder="Tên" />
+                                            <input type="email" placeholder="Địa chỉ email" />
+                                        </span>
+                                        <textarea name=""></textarea>
+                                        <button type="button" class="btn btn-default pull-right">
+                                            Gửi đánh giá
+                                        </button>
+                                    </form> 
                                 </div>
                             </div>
+
                         </div>
-
-                        <div class="tab-pane fade" id="companyprofile">
-                            <div class="col-sm-12">
-                                <div class="product-image-wrapper">
-                                    <div class="single-products">
-                                        <div class="productinfo text-center">
-                                            <img src="{{url($brandSelect->image)}}" style="width: 600px;" />
-                                            <h2>{{$brandSelect->name}}</h2>
-                                            {!! $brandSelect->content !!}
-                                            <a  class="btn btn-primary" href=""><i class="fa fa-plus"></i>Xem thêm</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-
                     </div>
+                    <!--/category-tab-->
                 </div>
-                <!--/category-tab-->
-
-                @include('user.recommend-product')
-                <!--/recommended_items-->
-
             </div>
         </div>
-    </div>
 </section>
 @endsection

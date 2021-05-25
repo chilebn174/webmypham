@@ -107,28 +107,27 @@ class AdminProductController extends Controller
         return $htmlOption;
     }
 
-    public function getBrand()
+    public function getBrand($id)
     {
         $data = $this->brand->all();
-        $htmlSlelect = '';
+        $product=$this->product->find($id);
+        $htmlSelect = '';
         foreach ($data as $value) {
-            $id = $value['id'];
+            if($product->brand_id==$value['id']) $htmlSelect='selected';
             if (!empty($id)) {
-                $htmlSlelect .= "<option  value='" . $value['id'] . "'>" . $value['ten'] . "</option>";
+                $htmlSelect .= "<option  value='" . $value['id'] . "'".$htmlSelect." >" . $value['ten'] . "</option>";
             }
-
         }
-        return $htmlSlelect;
+        return $htmlSelect;
     }
 
     public function edit($id)
     {
         $product = $this->product->find($id);
         $htmlOptionCategory = $this->getCategory($product->category_id);
-        $htmlOptionBrand = $this->getBrand($product->brand_id);
+        $htmlOptionBrand = $this->getBrand($product->id);
         return view('admin.product.edit', compact('htmlOptionCategory', 'htmlOptionBrand', 'product'));
     }
-
     public function update(Request $request, $id)
     {
         try {

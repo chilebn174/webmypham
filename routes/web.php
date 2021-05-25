@@ -5,36 +5,78 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/admin', 'AdminController@loginAdmin');
 Route::post('/admin', 'AdminController@postLoginAdmin');
+
+
+Route::get('admin-logout', [
+    'as' => 'admin-logout',
+    'uses' => 'AdminController@getLogoutAdmin'
+]);
+
+
 Route::get('/home', function () {
-        return view('home');
-    });
-    Route::get('/trang-chu',[
-    'as'=> 'trang-chu',
-    'uses'=>'UserController@getCate',
+    return view('home');
+});
+
+Route::get('trang-chu', [
+    'as' => 'trang-chu',
+    'uses' => 'UserController@getIndex'
 ]);
-    Route::get('product-details/{id}',[
-    'as'=> 'product-details',
-    'uses'=>'UserController@getDetail'
+Route::get('product-details/{id}', [
+    'as' => 'product-details',
+    'uses' => 'UserController@getDetail'
 ]);
-    Route::get('cart',[
-    'as'=> 'cart',
-    'uses'=>'UserController@getCart'
+Route::get('cart', [
+    'as' => 'cart',
+    'uses' => 'UserController@getCart'
 ]);
-    Route::get('checkout',[
-    'as'=> 'checkout',
-    'uses'=>'UserController@getCheckout'
+Route::get('checkout', [
+    'as' => 'checkout',
+    'uses' => 'UserController@getCheckout'
 ]);
-    Route::get('product',[
-    'as'=> 'product',
-    'uses'=>'UserController@getShop'
+Route::get('category/{id}', [
+    'as' => 'category',
+    'uses' => 'UserController@getShop'
 ]);
-    Route::get('login',[
-    'as'=> 'login',
-    'uses'=>'UserController@getLogin'
-]);Route::get('contact',[
-    'as'=> 'contact',
-    'uses'=>'UserController@getContact'
+
+Route::get('brand/{id}', [
+    'as' => 'brand',
+    'uses' => 'UserController@getBrand'
 ]);
+Route::get('login', [
+    'as' => 'login',
+    'uses' => 'UserController@getLogin'
+]);
+Route::get('register', [
+    'as' => 'register',
+    'uses' => 'UserController@getRegister'
+]);
+Route::get('contact', [
+    'as' => 'contact',
+    'uses' => 'UserController@getContact'
+]);
+Route::get('search', [
+    'as' => 'search',
+    'uses' => 'UserController@getSearch'
+]);
+
+//Đăng ký
+Route::post('register', [
+    'as' => 'register',
+    'uses' => 'UserController@postRegister'
+]);
+
+//Đăng nhập
+Route::post('login', [
+    'as' => 'login',
+    'uses' => 'UserController@postLogin'
+]);
+
+//Đăng xuất
+Route::get('logout', [
+    'as' => 'logout',
+    'uses' => 'UserController@getLogout'
+]);
+
 
 Route::prefix('admin')->group(function () {
 
@@ -120,7 +162,6 @@ Route::prefix('admin')->group(function () {
             'as' => 'brands.delete',
             'uses' => 'AdminBrandController@delete'
         ]);
-
     });
     Route::prefix('products')->group(function () {
         Route::get('/', [
@@ -147,8 +188,6 @@ Route::prefix('admin')->group(function () {
             'as' => 'products.delete',
             'uses' => 'AdminProductController@delete'
         ]);
-
-
     });
     Route::prefix('slider')->group(function () {
         Route::get('/', [
@@ -253,12 +292,10 @@ Route::prefix('admin')->group(function () {
             'as' => 'customers.delete',
             'uses' => 'AdminCustomerController@delete'
         ]);
-
-
     });
 });
+
 
 Route::group(['prefix' => 'laravel-filemanager', 'middleware' => ['web', 'auth']], function () {
     \UniSharp\LaravelFilemanager\Lfm::routes();
 });
-
