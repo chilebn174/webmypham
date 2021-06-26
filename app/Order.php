@@ -19,5 +19,5 @@ class Order extends Model
         return $this->hasMany(Customer::class, 'customer_id');
     }
 
-    protected $guarded;
+    protected $guarded = [];
 }

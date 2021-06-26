@@ -1,105 +1,116 @@
 @extends('layouts/master')
 @section('content')
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 padding-right">
-                <div class="product-details">
-                    <!--product-details-->
-                    <div class="col-sm-5">
-                        <div class="view-product">
-                            <img src="{{url($produc->feature_image)}}" alt="" />
+    <!-- Product Details Section Begin -->
+    <section class="product-details spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__pic">
+                        <div class="product__details__pic__item">
+                            <img class="product__details__pic__item--large"
+                                 src="{{url($produc->feature_image)}}" alt="">
                         </div>
-                        <div id="similar-product" class="carousel slide" data-ride="carousel">
-
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner">
-                                <div class="item active">
-                                    <a href=""><img src="" alt=""></a>
-                                    <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
-                                </div>
-                                <div class="item">
-                                    <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-                                    <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
-                                </div>
-                                <div class="item">
-                                    <a href=""><img src="images/product-details/similar1.jpg" alt=""></a>
-                                    <a href=""><img src="images/product-details/similar2.jpg" alt=""></a>
-                                    <a href=""><img src="images/product-details/similar3.jpg" alt=""></a>
-                                </div>
-
-                            </div>
-
-                            <!-- Controls -->
-                            <a class="left item-control" href="#similar-product" data-slide="prev">
-                                <i class="fa fa-angle-left"></i>
-                            </a>
-                            <a class="right item-control" href="#similar-product" data-slide="next">
-                                <i class="fa fa-angle-right"></i>
-                            </a>
+                        <div class="product__details__pic__slider owl-carousel">
+                            @foreach($produc->productImage as $im)
+                            <img data-imgbigurl="{{url($im->image)}}"
+                                 src="{{url($im->image)}}" alt="">
+                            @endforeach
                         </div>
-
                     </div>
-                    <div class="col-sm-7">
-                        <div class="product-information">
-                            <h2 style="margin-left:-10px;">{{$produc->name}}</h2>
-                            <p>@for($i=1; $i<=5; $i++) <i class="fa fa-star-o"></i>@endfor</p>
-                            <span>
-                                <p style="color: #f76e90; font-size:25px;">
-                                    {{@number_format($produc->price,0)}} VNĐ</p><br>
-                                <label>Số lượng: <input aria-label="quantity" class="input-qty" max="10" min="1" name="" type="number" value="1"></label>
-                            </span>
-                            <br>
-                            <p><b>Thương hiệu:</b> E-SHOPPER</p><br>
-                            <p><b>Tình trạng: </b>Còn hàng</p>
-                            <div class="contxt">
-                                <ul>
-                                    <li>
-                                        <a href="cart" style="margin-top: 50px; margin-left: -40px; margin-right:10px;" class="btn"><i class="fa fa-shopping-cart"></i> Thêm vào giỏ hàng</a>
-                                        <a href="checkout" style="margin-top: 50px;" class="btn">Mua ngay</a>
-                                    </li>
-                                </ul>
+                </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="product__details__text">
+                        <h3>{{$produc->name}}</h3>
+                        <div class="product__details__price">{{number_format($produc->price)}} VND</div>
+
+                        <input type="hidden" value="{{$produc->id}}" id="id_pr">
+                        <div class="product__details__quantity">
+                            <div class="quantity">
+                                <div class="pro-qty">
+                                    <input type="text" value="1" id="qty" max="{{$produc->quantity}}">
+                                </div>
                             </div>
-                            <!--/product-information-->
                         </div>
+                        <a class="btn btn-success" style="margin-left: 100px;"  href="@if($produc->quantity==0) # @else {{route('addtocart',['id'=>$produc->id])}}@endif" >
+                            <i class="fa fa-shopping-cart">     THÊM VÀO GIỎ HÀNG</i></a>
 
+                        <ul>
+                            <li><b>Số lượng còn</b> <a><span>{{$produc->quantity}}</span></a></li>
+                            <li><b>Danh mục</b> <a><span>{{$produc->category->name}}</span></a></li>
+                            <li><b>Thương hiệu</b> <a href="{{route('brand',['id'=>$produc->brand->id])}}"><span>{{$produc->brand->ten}} </span></a></li>
+                            <li><b>Share on</b>
+                                <div class="share">
+                                    <a href="#"><i class="fa fa-facebook"></i></a>
+                                    <a href="#"><i class="fa fa-twitter"></i></a>
+                                </div>
+                            </li>
+                            <li><b>Tags:</b>
+                                @foreach($produc->tags as $item)
+                                    <span class="badge badge-dark p-2" style="font-size: 15px;"><a href="http://localhost:8080/web/public/shop?tag={{$item->id}}">{{$item->name}}</a></span>
+                                @endforeach
+                            </li>
+                        </ul>
                     </div>
-                    <!--/product-details-->
-
-                    <div class="category-tab shop-details-tab">
-                        <!--category-tab-->
-                        <div class="col-sm-12">
-                            <ul class="nav nav-tabs">
-                                <li class="active"><a href="#" data-toggle="tab">Chi tiết</a></li>
-                                <li><a href="#reviews" data-toggle="tab">Đánh giá (5)</a></li>
-                            </ul>
-                        </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="product__details__tab">
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#tabs-1" role="tab"
+                                   aria-selected="true">Thông tin </a>
+                            </li>
+                        </ul>
                         <div class="tab-content">
-                            <div class="tab-pane fade active in" id="reviews">
-                                <div class="col-sm-12">
-                                    <p style="font-family: 'Roboto', sans-serif; margin-top:30px;">{!!$produc->content!!}</p>
-                                    <p><b>Viết đánh giá</b></p>
-        
-                                    <form action="#" method="POST">
-                                        <span>
-                                            <input type="text" placeholder="Tên" />
-                                            <input type="email" placeholder="Địa chỉ email" />
-                                        </span>
-                                        <textarea name=""></textarea>
-                                        <button type="button" class="btn btn-default pull-right">
-                                            Gửi đánh giá
-                                        </button>
-                                    </form> 
+                            <div class="tab-pane active" id="tabs-1" role="tabpanel">
+                                <div class="product__details__tab__desc">
+                                    <h6>Thông tin sản phẩm</h6>
+                                    <p>{!! $produc->content !!}</p>
                                 </div>
                             </div>
 
                         </div>
                     </div>
-                    <!--/category-tab-->
                 </div>
             </div>
         </div>
-</section>
+    </section>
+    <!-- Product Details Section End -->
+
+    <!-- Related Product Section Begin -->
+    <section class="related-product">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title related__product__title">
+                        <h2>Sản phẩm mới nhất</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                @foreach($productLat as $pr)
+                <div class="col-lg-3 col-md-4 col-sm-6">
+                    <div class="product__item">
+                        <div class="product__item__pic set-bg" data-setbg="{{url($pr->feature_image)}}">
+                            <ul class="product__item__pic__hover">
+                                <form action="{{route('cart')}}" method="post">
+                                    @csrf
+                                    <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                    <input type="hidden" value="{{$pr->id}}" id="pr_id">
+                                    <li><a href="{{route('addtocart',['id'=>$pr->id])}}"><i class="fa fa-shopping-cart"></i></a></li>
+                                </form>
+                            </ul>
+                        </div>
+                        <div class="product__item__text">
+                            <h6><a href="{{route('product-detail',['id'=>$pr->id])}}">{{$pr->name}}</a></h6>
+                            <h5>{{number_format($pr->price)}} VND</h5>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <!-- Related Product Section End -->
+
+
 @endsection

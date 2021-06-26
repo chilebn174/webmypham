@@ -12,7 +12,7 @@
 
         <form action="{{route('products.store')}}" method="post" enctype="multipart/form-data">
             <div class="content">
-                <div class="container-fluid">
+                <div class="container-fluid m-3">
                     <div class="row">
                         <div class="col-md-6">
 
@@ -40,6 +40,13 @@
                                 @error('price')
                                 <div class="alert alert-danger">{{ $message }}</div>
                                 @enderror
+                                <label>Số lượng</label>
+                                <input type="number"
+                                       class="form-control "
+                                       name="quantity"
+                                       placeholder="Nhập số lượng sản phẩm..."
+                                       value="{{old('quantity')}}"
+                                >
                             </div>
                             <div class="form-group">
                                 <label>Ảnh đại diện</label>
@@ -73,7 +80,9 @@
                                     class="form-control select2_init2 line_height @error('brand_id') is-invalid @enderror"
                                     name="brand_id">
                                     <option value="">Chọn thương hiệu</option>
-                                    {!! $htmlOptionBrand !!}
+                                    @foreach($brand as $value)
+                                    <option value="{{$value->id}}">{{$value->ten}}</option>
+                                    @endforeach
                                 </select>
                                 @error('brand_id')
                                 <div class="alert alert-danger">{{ $message }}</div>

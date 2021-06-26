@@ -24,7 +24,12 @@ class AdminBrandController extends Controller
         $brands = $this->brand->paginate(5);
         return view('admin.brand.index', compact('brands'));
     }
-
+    public function search(Request $r)
+    {
+        $brands = Brand::where('ten', 'like', '%' . $r->key . '%')
+            ->orWhere('id', $r->key)->paginate(5);
+        return view('admin.brand.index', compact('brands'));
+    }
     public function create()
     {
         return view('admin.brand.add');
@@ -32,7 +37,6 @@ class AdminBrandController extends Controller
 
     public function store(BrandAddRequest $request)
     {
-        try {
             $dataInsert = [
                 'ten' => $request->ten,
                 'content' => $request->contents
@@ -44,9 +48,7 @@ class AdminBrandController extends Controller
             }
             $this->brand->create($dataInsert);
             return redirect()->route('brands.index');
-        } catch (\Exception $exception) {
-            Log::error('Message: ' . $exception->getMessage() . ', Line: ' . $exception->getLine());
-        }
+
     }
 
     public function edit(Request $request, $id)

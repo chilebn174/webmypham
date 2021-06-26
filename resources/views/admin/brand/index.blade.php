@@ -7,6 +7,18 @@
     <script src="{{asset('vendor/sweetAlert2/sweetalert2@10.js')}}"></script>
     <script src="{{asset('admins/product/list.js')}}"></script>
 @endsection
+@section('search')
+    <form class="form-inline ml-3" method="" action="{{route('brands.search')}}">
+        <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" name="key" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+@endsection
 
 @section('content')
 

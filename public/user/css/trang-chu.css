@@ -1,0 +1,18 @@
+.hero__categories a:hover {
+    color: #7fad39 !important;
+
+}
+#menu ul li {
+    position: relative;
+}
+.sub-menu {
+    display: none !important;
+    position: absolute !important;
+    left: 210px !important;
+    top: 0 !important;
+    width: 100% !important;
+}
+#menu li:hover  .sub-menu{
+    display: block !important;
+}
+

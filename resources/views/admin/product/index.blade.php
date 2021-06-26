@@ -7,11 +7,23 @@
     <script src="{{asset('vendor/sweetAlert2/sweetalert2@10.js')}}"></script>
     <script src="{{asset('admins/product/list.js')}}"></script>
 @endsection
-
+@section('search')
+    <form class="form-inline ml-3" method="" action="{{route('products.search')}}">
+        <div class="input-group input-group-sm">
+            <input class="form-control form-control-navbar" name="key" type="search" placeholder="Search" aria-label="Search">
+            <div class="input-group-append">
+                <button class="btn btn-navbar" type="submit">
+                    <i class="fa fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+@endsection
 @section('content')
-
     <div class="content-wrapper">
         @include('partials.content-header', ['name' => 'Product', 'key' => 'List'])
+
+
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
@@ -25,6 +37,7 @@
                                 <th scope="col">#</th>
                                 <th scope="col">Tên sản phẩm</th>
                                 <th scope="col">Giá</th>
+                                <th scope="col">Số lượng</th>
                                 <th scope="col">Hình ảnh</th>
                                 <th scope="col">Danh mục</th>
                                 <th scope="col">Thương hiệu</th>
@@ -39,6 +52,7 @@
                                     <th scope="row">{{$productItem->id}}</th>
                                     <td>{{$productItem->name}}</td>
                                     <td>{{ number_format($productItem->price)}}</td>
+                                    <td>{{$productItem->quantity}}</td>
                                     <td>
                                         <img class="image" src="{{ url($productItem->feature_image)}}" alt=""/></td>
                                     <td>{{optional($productItem->category) ->name}}</td>

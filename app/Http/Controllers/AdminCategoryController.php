@@ -27,6 +27,12 @@ class AdminCategoryController extends Controller
         $categories = $this->category->latest()->paginate(5);
         return view('admin.category.index', compact('categories'));
     }
+    public function search(Request $r)
+    {
+        $categories = Category::where('name', 'like', '%' . $r->key . '%')
+            ->orWhere('id', $r->key)->paginate(10);
+        return view('admin.category.index', compact('categories'));
+    }
 
     public function store(Request $request)
     {

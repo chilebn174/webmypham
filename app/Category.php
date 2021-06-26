@@ -10,4 +10,13 @@ class Category extends Model
     use SoftDeletes;
 
     protected $fillable = ['name', 'parent_id', 'slug'];
+    protected $table = 'categories';
+
+    public function categoryChirldrent()
+    {
+        return $this->hasMany(Category::class, 'parent_id');
+    }
+    public function numCate(){
+        return $this->hasMany(Product::class, 'category_id');
+    }
 }

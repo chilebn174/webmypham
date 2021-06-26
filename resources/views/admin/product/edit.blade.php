@@ -36,6 +36,15 @@
                                 >
                             </div>
                             <div class="form-group">
+                                <label>Số lượng</label>
+                                <input type="text"
+                                       class="form-control"
+                                       value="{{$product->quantity}}"
+                                       name="quantity"
+                                       placeholder="Nhập số lượng sản phẩm..."
+                                >
+                            </div>
+                            <div class="form-group">
                                 <label>Ảnh đại diện</label>
                                 <input type="file"
                                        class="form-control-file"

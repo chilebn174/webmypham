@@ -1,53 +1,39 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <base href="{{ asset('') }}">
-    <link href="users/css/bootstrap.min.css" rel="stylesheet">
-    <link href="users/css/font-awesome.min.css" rel="stylesheet">
-    <link href="users/css/prettyPhoto.css" rel="stylesheet">
-    <link href="users/css/price-range.css" rel="stylesheet">
-    <link href="users/css/animate.css" rel="stylesheet">
-    <link href="users/css/main.css" rel="stylesheet">
-    <link href="users/css/responsive.css" rel="stylesheet">
-    <!-- <link rel="shortcut icon" href="users/images/ico/favicon.ico"> -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="users/images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="users/images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="users/images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="users/images/ico/apple-touch-icon-57-precomposed.png">
-</head>
-<body>
-@include("UserCommon.topbar");
-<section id="form">
-    <!--form-->
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4 col-sm-offset-1">
-                <div class="login-form">
-                    <!--login form-->
-                    <h2>Đăng nhập tài khoản</h2>
-                    @if(Session::has('flag'))
-                    <div class="alert alert-{{Session::get('flag')}}">{{Session::get('message')}}</div>
-                    @endif
-                    <form action="login" method="POST">
-                        @csrf                        
-                        <input type="email" placeholder="Email Address" required name="email"/>
-                        <input type="password" placeholder="Password" name="password" required/>
-                        <span>
-                            <input type="checkbox" class="checkbox">
-                            Nhớ mật khẩu
-                        </span>
-                        <a href="register">Bạn chưa có tài khoản? Đăng ký</a>
-                        <input type="submit" class="btn btn-primary" value="Đăng nhập">
-                    </form>
+@extends('layouts.master')
+@section('content')
+    <section id="form" >
+        <!--form-->
+        <div class="container">
+            <div class="row" style="margin-left: 350px;">
+                <div class="col-sm-6 m-3">
+                        <h2 class="m-3">Đăng nhập tài khoản</h2>
+                        @if(isset($mess))
+                            <div class="alert alert-{{$mess->flag}}">{{$mess->message}}</div>
+                        @endif
+                    <div class="social-login">
+                        <button class="btn btn-danger m-2 col-md-12"  type="button"><span><i class="fa fa-google-plus-g"></i> <a  href="{{route('google')}}" style="color: white">Sign in with Google+</a></span> </button>
+                    </div>
+                        <form action="{{route('check-login')}}" method="post" enctype="multipart/form-data">
+                            @csrf
+                            <div class="col-lg-12 m-2">
+                                <div class="checkout__input">
+                                    <p>Email<span>*</span></p>
+                                    <input type="email" placeholder="Email Address" required name="email"/>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 m-2">
+                                <div class="checkout__input">
+                                    <p>Password<span>*</span></p>
+                                    <input type="password" placeholder="Password" name="password" required/>
+                                </div>
+                            </div>
+                            <a href="#" id="forgot_pswd" class="list-inline-item m-3">Quên mật khẩu</a>
+                            <hr>
+                            <a href="{{route('register')}}" class="list-inline-item m-3">Bạn chưa có tài khoản? Đăng ký</a><br>
+                            <button type="submit" class="site-btn" style="margin-left: 100px;" >Đăng nhập</button>
+                        </form>
+                    <!--/login form-->
                 </div>
-                <!--/login form-->
             </div>
         </div>
-    </div>
-</section>
-<!--/form-->
-</body>
-</html>
+    </section>
+@endsection

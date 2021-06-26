@@ -1,207 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <base href="{{ asset('') }}">
-    <link href="users/css/bootstrap.min.css" rel="stylesheet">
-    <link href="users/css/font-awesome.min.css" rel="stylesheet">
-    <link href="users/css/prettyPhoto.css" rel="stylesheet">
-    <link href="users/css/price-range.css" rel="stylesheet">
-    <link href="users/css/animate.css" rel="stylesheet">
-    <link href="users/css/main.css" rel="stylesheet">
-    <link href="users/css/responsive.css" rel="stylesheet">
-    <!-- <link rel="shortcut icon" href="users/images/ico/favicon.ico"> -->
-    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="users/images/ico/apple-touch-icon-144-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="users/images/ico/apple-touch-icon-114-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="users/images/ico/apple-touch-icon-72-precomposed.png">
-    <link rel="apple-touch-icon-precomposed" href="users/images/ico/apple-touch-icon-57-precomposed.png">
-</head>
-
-<body>
-    @include("UserCommon.topbar");
-    <section id="cart_items">
+@extends('layouts.master')
+@section('content')
+    <section class="breadcrumb-section set-bg" data-setbg="user/img/images.jpg">
         <div class="container">
-            <div class="breadcrumbs">
-                <ol class="breadcrumb">
-                    <li><a href="#">Home</a></li>
-                    <li class="active">Shopping Cart</li>
-                </ol>
-            </div>
-            <div class="table-responsive cart_info">
-                <table class="table table-condensed">
-                    <thead>
-                        <tr class="cart_menu">
-                            <td class="image">Item</td>
-                            <td class="description"></td>
-                            <td class="price">Price</td>
-                            <td class="quantity">Quantity</td>
-                            <td class="total">Total</td>
-                            <td></td>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="cart_product">
-                                <a href=""><img src="images/cart/one.png" alt=""></a>
-                            </td>
-                            <td class="cart_description">
-                                <h4><a href="">Colorblock Scuba</a></h4>
-                                <p>Web ID: 1089772</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>$59</p>
-                            </td>
-                            <td class="cart_quantity">
-                                <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" href=""> + </a>
-                                    <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" href=""> - </a>
-                                </div>
-                            </td>
-                            <td class="cart_total">
-                                <p class="cart_total_price">$59</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                            </td>
-                        </tr>
-
-                        <tr>
-                            <td class="cart_product">
-                                <a href=""><img src="images/cart/two.png" alt=""></a>
-                            </td>
-                            <td class="cart_description">
-                                <h4><a href="">Colorblock Scuba</a></h4>
-                                <p>Web ID: 1089772</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>$59</p>
-                            </td>
-                            <td class="cart_quantity">
-                                <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" href=""> + </a>
-                                    <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" href=""> - </a>
-                                </div>
-                            </td>
-                            <td class="cart_total">
-                                <p class="cart_total_price">$59</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="cart_product">
-                                <a href=""><img src="images/cart/three.png" alt=""></a>
-                            </td>
-                            <td class="cart_description">
-                                <h4><a href="">Colorblock Scuba</a></h4>
-                                <p>Web ID: 1089772</p>
-                            </td>
-                            <td class="cart_price">
-                                <p>$59</p>
-                            </td>
-                            <td class="cart_quantity">
-                                <div class="cart_quantity_button">
-                                    <a class="cart_quantity_up" href=""> + </a>
-                                    <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                    <a class="cart_quantity_down" href=""> - </a>
-                                </div>
-                            </td>
-                            <td class="cart_total">
-                                <p class="cart_total_price">$59</p>
-                            </td>
-                            <td class="cart_delete">
-                                <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <div class="breadcrumb__text">
+                        <h2>Shopping Cart</h2>
+                        <div class="breadcrumb__option">
+                            <a href="{{route('trang-chu')}}">Home</a>
+                            <span>Shopping Cart</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
-    <!--/#cart_items-->
-
-    <section id="do_action">
+    <section class="shoping-cart spad">
         <div class="container">
-            <div class="heading">
-                <h3>What would you like to do next?</h3>
-                <p>Choose if you have a discount code or reward points you want to use or would like to estimate your delivery cost.</p>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="shoping__cart__table">
+                        <table class="update_cart_url" data-url="{{route('updatecart')}}">
+                            <thead>
+                            <tr>
+                                <th class="shoping__product">Sản phẩm</th>
+                                <th>Giá</th>
+                                <th>Số lượng</th>
+                                <th>Thành tiền</th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <form action="{{route('updatecart')}}">
+                                @if($cart!= null)
+                            @foreach($cart as $key => $item)
+                            <tr>
+                                <td class="shoping__cart__item">
+                                    <img src="{{url($item['image'])}}" alt="" style="width: 100px">
+                                    <h5>{{$item['name']}}  </h5>
+                                </td>
+                                <td class="shoping__cart__price">
+                                    {{number_format($item['price'])}}
+                                </td>
+                                <td class="shoping__cart__quantity">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" value="{{$item['qty']}}" name="qty_{{$key}}">
+                                            <input type="hidden"  value="{{$key}}" name="id_{{$key}}">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="shoping__cart__total">
+                                    {{number_format($item['qty']*$item['price'])}}
+                                </td>
+                                <td class="shoping__cart__item__close">
+                                    <a href="{{route('deletecart',['id'=>$key])}}"><span class="icon_close"></span></a>
+                                </td>
+                            </tr>
+                            @endforeach
+                            @endif
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="chose_area">
-                        <ul class="user_option">
-                            <li>
-                                <input type="checkbox">
-                                <label>Use Coupon Code</label>
-                            </li>
-                            <li>
-                                <input type="checkbox">
-                                <label>Use Gift Voucher</label>
-                            </li>
-                            <li>
-                                <input type="checkbox">
-                                <label>Estimate Shipping & Taxes</label>
-                            </li>
-                        </ul>
-                        <ul class="user_info">
-                            <li class="single_field">
-                                <label>Country:</label>
-                                <select>
-                                    <option>United States</option>
-                                    <option>Bangladesh</option>
-                                    <option>UK</option>
-                                    <option>India</option>
-                                    <option>Pakistan</option>
-                                    <option>Ucrane</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-
-                            </li>
-                            <li class="single_field">
-                                <label>Region / State:</label>
-                                <select>
-                                    <option>Select</option>
-                                    <option>Dhaka</option>
-                                    <option>London</option>
-                                    <option>Dillih</option>
-                                    <option>Lahore</option>
-                                    <option>Alaska</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-
-                            </li>
-                            <li class="single_field zip-field">
-                                <label>Zip Code:</label>
-                                <input type="text">
-                            </li>
-                        </ul>
-                        <a class="btn btn-default update" href="">Get Quotes</a>
-                        <a class="btn btn-default check_out" href="">Continue</a>
+                <div class="col-lg-12">
+                    <div class="shoping__cart__btns">
+                        <a href="{{route('trang-chu')}}" class="primary-btn cart-btn">TIẾP TỤC MUA HÀNG</a>
+                        <button type="submit" class="primary-btn cart-btn cart-btn-right" style="border: 0px"><span class="icon_loading"></span>
+                            CẬP NHẬT</button>
                     </div>
+                    </form>
                 </div>
-                <div class="col-sm-6">
-                    <div class="total_area">
+                <div class="col-lg-6">
+{{--                    <div class="shoping__continue">--}}
+{{--                        <div class="shoping__discount">--}}
+{{--                            <h5>Discount Codes</h5>--}}
+{{--                            <form action="#">--}}
+{{--                                <input type="text" placeholder="Enter your coupon code">--}}
+{{--                                <button type="submit" class="site-btn">APPLY COUPON</button>--}}
+{{--                            </form>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+                </div>
+                <div class="col-lg-6">
+                    <div class="shoping__checkout">
+                        <h5>Tổng tiền</h5>
                         <ul>
-                            <li>Cart Sub Total <span>$59</span></li>
-                            <li>Eco Tax <span>$2</span></li>
-                            <li>Shipping Cost <span>Free</span></li>
-                            <li>Total <span>$61</span></li>
+                            <li>Tạm Tính <span>{{number_format($total)}} VND </span></li>
+                            <li>Tổng <span>{{number_format($total)}} VND </span></li>
                         </ul>
-                        <a class="btn btn-default update" href="">Update</a>
-                        <a class="btn btn-default check_out" href="">Check Out</a>
+                        <a href="@if(isset($user)){{route('checkout')}}  @else {{route('login')}}@endif" class="primary-btn">ĐẶT HÀNG</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!--/#do_action-->
-</body>
-</html>
+@endsection

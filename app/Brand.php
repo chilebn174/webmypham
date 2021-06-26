@@ -10,4 +10,7 @@ class Brand extends Model
     use SoftDeletes;
 
     protected $guarded = [];
+    public function numBr(){
+        return $this->hasMany(Product::class, 'brand_id');
+    }
 }

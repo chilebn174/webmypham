@@ -26,7 +26,6 @@ class Recusive
                 $this->recusive($parentId, $value['id'], $text . '--');
             }
         }
-
         return $this->htmlSlelect;
 
     }

@@ -22,7 +22,11 @@ class Product extends Model
             ->belongsToMany(Tag::class, 'product_tags', 'product_id', 'tag_id')
             ->withTimestamps();
     }
-
+    public function orders(){
+        return $this
+            ->belongsToMany(Tag::class, 'order_details', 'product_id', 'order_id')
+            ->withTimestamps();
+    }
     public function category()
     {
         return $this->belongsTo(Category::class, 'category_id');
@@ -36,5 +40,8 @@ class Product extends Model
     public function productImage()
     {
         return $this->hasMany(ProductImage::class, 'product_id');
+    }
+    public function pro(){
+        return $this->hasOne(Product::class);
     }
 }

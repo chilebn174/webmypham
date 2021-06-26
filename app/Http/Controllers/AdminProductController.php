@@ -42,12 +42,17 @@ class AdminProductController extends Controller
         $products = $this->product->paginate(5);
         return view('admin.product.index', compact('products'));
     }
-
+    public function search(Request $r)
+    {
+        $products = Product::where('name', 'like', '%' . $r->key . '%')
+            ->orWhere('id', $r->key)->paginate(10);
+        return view('admin.product.index', compact('products'));
+    }
     public function create()
     {
         $htmlOptionCategory = $this->getCategory($parentId = '');
-        $htmlOptionBrand = $this->getBrand();
-        return view('admin.product.add', compact('htmlOptionCategory'), compact('htmlOptionBrand'));
+        $brand = $this->brand->get();
+        return view('admin.product.add', compact('htmlOptionCategory','brand'));
     }
 
     public function store(ProductAddRequest $request)
@@ -60,7 +65,8 @@ class AdminProductController extends Controller
                 'content' => $request->contents,
                 'user_id' => auth()->id(),
                 'category_id' => $request->category_id,
-                'brand_id' => $request->brand_id
+                'brand_id' => $request->brand_id,
+                'quantity'=>$request->quantity
             ];
             $data = $this->storageTraitUpload($request, 'feature_image', 'product');
             if (!empty($data)) {
@@ -113,8 +119,8 @@ class AdminProductController extends Controller
         $product=$this->product->find($id);
         $htmlSelect = '';
         foreach ($data as $value) {
-            if($product->brand_id==$value['id']) $htmlSelect='selected';
             if (!empty($id)) {
+            if($product->brand_id==$value['id']) $htmlSelect='selected';
                 $htmlSelect .= "<option  value='" . $value['id'] . "'".$htmlSelect." >" . $value['ten'] . "</option>";
             }
         }
@@ -138,7 +144,8 @@ class AdminProductController extends Controller
                 'content' => $request->contents,
                 'user_id' => auth()->id(),
                 'category_id' => $request->category_id,
-                'brand_id' => $request->brand_id
+                'brand_id' => $request->brand_id,
+                'quantity'=>$request->quantity
             ];
             $dataUploadFeatureImage = $this->storageTraitUpload($request, 'feature_image', 'product');
             if (!empty($dataUploadFeatureImage)) {

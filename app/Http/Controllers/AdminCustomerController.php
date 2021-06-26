@@ -23,7 +23,14 @@ class AdminCustomerController extends Controller
         $customers = $this->customer->paginate(10);
         return view('admin.customer.index', compact('customers'));
     }
-
+    public function search(Request $r)
+    {
+        $customers = Customer::where('name', 'like', '%' . $r->key . '%')
+            ->orWhere('id', $r->key)
+            ->orWhere('address', $r->key)
+            ->orWhere('phone', $r->key)->paginate(10);
+        return view('admin.customer.index', compact('customers'));
+    }
     public function create()
     {
         return view('admin.customer.add');

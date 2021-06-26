@@ -1,116 +1,211 @@
 @extends('layouts/master')
 @section('content')
+@foreach($slider->random(1) as $sl)
+    <section class="blog-details-hero set-bg" data-setbg="{{url($sl->image_path)}}">
+        <div class="container">
+            <div class="row">
 
-<!--slider-->
-<section id="slider">
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div id="slider-carousel" class="carousel slide" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        @for($i=1; $i<=count($slide); $i++) <li data-target="#slider-carousel" data-slide-to="$i">
-                            </li>
-                            @endfor
-                    </ol>
-                    <div class="carousel-inner">
-                        @foreach($slide as $key => $sl)
-                        <div class="item {{$key == 0 ? 'active' : ''}}">
-                            <div class="col-sm-12">
-                                <img style="height:250px;" src="{{url($sl -> image_path)}}" class="img-responsive" alt="" />
-                            </div>
-                        </div>
-                        @endforeach
+                <div class="col-lg-12">
+                    <div class="blog__details__hero__text">
+                        <h2>The Moment You Need To Remove Product From The Menu</h2>
                     </div>
-                    <a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">
-                        <i class="fa fa-angle-left"></i>
-                    </a>
-                    <a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">
-                        <i class="fa fa-angle-right"></i>
-                    </a>
                 </div>
+
             </div>
         </div>
-    </div>
-</section>
-<!--/slider-->
-<!--Content-->
-<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 padding-right">
-                <div class="features_items">
-                    <!--features_items-->
-                    <h2 class="title text-center">Sản phẩm nổi bật</h2>
-                    @foreach($products as $produ)
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="{{url($produ->feature_image)}}" alt="" />
-                                    <h2>{{@number_format($produ->price,0)}} VNĐ</h2>
-                                    <p style="height: 50px;">{{$produ->name}}</p>
-                                </div>
-                                <div class="contxt">
-                                    <ul>
-                                        <li>
-                                            <a href="cart" style="margin-right: 10px; margin-left:25px;" class="btn"><i class="fa fa-shopping-cart"></i></a>
-                                            <a href="{{route('product-details',['id'=>$produ->id])}}" class="btn">Xem chi tiết</a>
-                                        </li>
-                                    </ul>
-                                </div>
+    </section>
+@endforeach
+    <!-- Categories Section Begin -->
+    <section class="categories">
+        <div class="container">
+            <div class="row">
+                <div class="categories__slider owl-carousel">
+                    @foreach($brand as $br)
+                        <div class="col-lg-3">
+                            <div class="categories__item set-bg">
+                                <img src="{{url($br->image)}}" style="width: 70%; padding-top: 100px;padding-left: 70px;">
+                                <h5 ><a style="border: 1px solid #b2b2b2;" href="{{route('brand', ['id'=>$br->id])}}">{{$br->ten}}</a></h5>
                             </div>
                         </div>
-                    </div>
                     @endforeach
                 </div>
-                <!--features_items-->
+            </div>
+        </div>
+    </section>
+    <!-- Categories Section End -->
 
-                <div class="recommended_items">
-                    <!--recommended_items-->
-                    <h2 class="title text-center">Sản phẩm bán chạy</h2>
-                    <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
-                        <div class="carousel-inner">
-                            @foreach($prod as $keyR => $pro)
-                            @if($keyR % 3 == 0)
-                            <div class="item {{$keyR == 0 ? 'active' : ''}}">
+    <!-- Featured Section Begin -->
+    <section class="featured spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h2>Sẩn phẩm nổi bật</h2>
+                    </div>
+                    <div class="featured__controls">
+                        <ul>
+                            <li class="active" data-filter="*">All</li>
+                            @foreach($category as $cate)
+                                @if($cate->parent_id==0)
+                                    @foreach($category as $c)
+                                        @if($cate->id==$c->parent_id)
+                            <li data-filter=".cate{{$c->id}}">{{$c->name}}</li>
+                                        @endif
+                                    @endforeach
                                 @endif
-                                <div class="col-sm-4">
-                                    <div class="product-image-wrapper">
-                                        <div class="single-products">
-                                            <div class="productinfo text-center">
-                                                <img src="{{url($pro->feature_image)}}" alt="" />
-                                                <h2>{{@number_format($pro->price,0)}} VNĐ</h2>
-                                                <p style="height: 50px;">{{$pro->name}}</p>
-                                            </div>
-                                            <div class="contxt">
-                                                <ul>
-                                                    <li>
-                                                        <a href="cart" style="margin-right: 10px; margin-left:25px;" class="btn"><i class="fa fa-shopping-cart"></i></a>
-                                                        <a href="{{route('product-details',['id'=>$pro->id])}}" class="btn">Xem chi tiết</a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                @if($keyR % 3 == 2)
-                            </div>
-                            @endif
                             @endforeach
-                        </div>
-                        <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                        <a class="right recommended-item-control" href="#recommended-item-carousel" data-slide="next">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
+                        </ul>
                     </div>
                 </div>
-                <!--/recommended_items-->
+            </div>
+            <div class="row featured__filter">
+                @foreach($product as $pr)
+                <div class="col-lg-3 col-md-4 col-sm-6 mix cate{{$pr->category_id}} ">
+                    <div class="featured__item">
+                        <div class="featured__item__pic set-bg" data-setbg="{{url($pr->feature_image)}}">
+                            <ul class="featured__item__pic__hover">
+                                <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                                <li><a href="#"><i class="fa fa-retweet"></i></a></li>
+                                <li><a href="{{route('addtocart',['id'=>$pr->id])}}"><i class="fa fa-shopping-cart"></i></a></li>
+                            </ul>
+                        </div>
+                        <div class="featured__item__text">
+                            <h6><a href="{{route('product-detail', ['id'=>$pr->id])}}">{{$pr->name}}</a></h6>
+                            <h5>{{number_format($pr->price)}} VND</h5>
+                        </div>
+                    </div>
 
+                </div>
+
+                @endforeach
+            </div>
+        </div>
+{{--        <div class="float-right">{{$product->links()}}</div>--}}
+    </section>
+    <!-- Featured Section End -->
+
+    <!-- Banner Begin -->
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+                @foreach($slider as $sl)
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="banner__pic" style="margin-bottom: 20px;">
+                        <img src="{{url($sl->image_path)}}" alt="">
+                    </div>
+                </div>
+                @endforeach
             </div>
         </div>
     </div>
-</section>
-<!--/Contents-->
+    <!-- Banner End -->
+
+    <!-- Latest Product Section Begin -->
+    <section class="latest-product spad">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="latest-product__text">
+                        <h4>Latest Products</h4>
+                        <div class="latest-product__slider owl-carousel">
+
+                            <div class="latest-prdouct__slider__item">
+                                @foreach($productLat as $pr)
+                                <a href="{{route('product-detail', ['id'=>$pr->id])}}" class="latest-product__item">
+                                    <div class="latest-product__item__pic">
+                                        <img style="width: 100px;" src="{{url($pr->feature_image)}}" alt="">
+                                    </div>
+                                    <div class="latest-product__item__text">
+                                        <h6>{{$pr->name}}</h6>
+                                        <span>{{number_format($pr->price)}} VND</span>
+                                    </div>
+                                </a>
+                                @endforeach
+                            </div>
+                            <div class="latest-prdouct__slider__item">
+                                @foreach($product->random(3) as $pr)
+                                    <a href="{{route('product-detail', ['id'=>$pr->id])}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img style="width: 100px;" src="{{url($pr->feature_image)}}" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{$pr->name}}</h6>
+                                            <span>{{number_format($pr->price)}} VND</span>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="latest-product__text">
+                        <h4>Top Rated Products</h4>
+                        <div class="latest-product__slider owl-carousel">
+                            <div class="latest-prdouct__slider__item">
+                                @foreach($product->random(3) as $pr)
+                                    <a href="{{route('product-detail', ['id'=>$pr->id])}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img style="width: 100px;" src="{{url($pr->feature_image)}}" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{$pr->name}}</h6>
+                                            <span>{{number_format($pr->price)}} VND</span>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                            <div class="latest-prdouct__slider__item">
+                                @foreach($product->random(3) as $pr)
+                                    <a href="{{route('product-detail', ['id'=>$pr->id])}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img style="width: 100px;" src="{{url($pr->feature_image)}}" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{$pr->name}}</h6>
+                                            <span>{{number_format($pr->price)}} VND</span>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="latest-product__text">
+                        <h4>Review Products</h4>
+                        <div class="latest-product__slider owl-carousel">
+                            <div class="latest-prdouct__slider__item">
+                                @foreach($product->random(3) as $pr)
+                                    <a href="{{route('product-detail', ['id'=>$pr->id])}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img style="width: 100px;" src="{{url($pr->feature_image)}}" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{$pr->name}}</h6>
+                                            <span>{{number_format($pr->price)}} VND</span>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                            <div class="latest-prdouct__slider__item">
+                                @foreach($product->random(3) as $pr)
+                                    <a href="{{route('product-detail', ['id'=>$pr->id])}}" class="latest-product__item">
+                                        <div class="latest-product__item__pic">
+                                            <img style="width: 100px;" src="{{url($pr->feature_image)}}" alt="">
+                                        </div>
+                                        <div class="latest-product__item__text">
+                                            <h6>{{$pr->name}}</h6>
+                                            <span>{{number_format($pr->price)}} VND</span>
+                                        </div>
+                                    </a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Latest Product Section End -->
 @endsection
