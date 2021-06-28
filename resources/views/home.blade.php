@@ -17,16 +17,21 @@
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    
+
                     <div class="col-md-12">
                         Trang chu
-
+                        <div class="col-md-6" >
+                            @if(isset($success))
+                                <div class="alert alert-success" role="alert">{{ $success }}</div>
+                            @endif</div>
                     </div>
+
 
                 </div>
                 <!-- /.row -->
             </div><!-- /.container-fluid -->
         </div>
+
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
